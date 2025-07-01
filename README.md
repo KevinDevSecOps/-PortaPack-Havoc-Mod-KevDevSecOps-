@@ -96,14 +96,4 @@ Ver [LICENSE](LICENSE) para detalles.
 
 ---
 
-### 📌 **Qué incluir próximamente**
-1. **Badges dinámicos** (build status, version, etc.) → Necesitas configurar GitHub Actions.
-2. **Wiki del proyecto** (para documentación avanzada).
-3. **Ejemplos de código** (en `docs/examples/`).
 
-¿Quieres que profundicemos en alguna parte? Por ejemplo:
-- 🛠 **Cómo añadir capturas de pantalla al README**.
-- 🤖 **Automatizar el versionado con GitHub Releases**.
-- 📡 **Documentar una función técnica específica**. 
-
-¡Dame feedback y seguimos mejorando! 🚀
