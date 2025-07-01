@@ -1,4 +1,5 @@
 # -PortaPack-Havoc-Mod-KevDevSecOps-
+![HackRF Love](https://img.shields.io/badge/Powered%20by-HackRF%20One-important)
 📻 **¡Que las ondas estén contigo!**
 ## Comunidad
 - [Código de Conducta](CODE_OF_CONDUCT.md)
