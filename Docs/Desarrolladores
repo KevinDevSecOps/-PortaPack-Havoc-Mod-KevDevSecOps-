@@ -1,0 +1,6 @@
+mkdir -p docs && touch docs/development.md
+# Guía para Desarrolladores
+## Compilación
+```bash
+cmake -B build -DCMAKE_TOOLCHAIN_FILE=cmake/Toolchain-arm-none-eabi.cmake
+cmake --build build
