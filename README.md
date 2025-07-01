@@ -1,4 +1,5 @@
 # -PortaPack-Havoc-Mod-KevDevSecOps-
+📻 **¡Que las ondas estén contigo!**
 ## Comunidad
 - [Código de Conducta](CODE_OF_CONDUCT.md)
 - [Política de Seguridad](SECURITY.md)
