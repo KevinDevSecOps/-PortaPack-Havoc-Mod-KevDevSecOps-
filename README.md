@@ -6,7 +6,7 @@
 # PortaPack-Havoc Mod [by KevinDevSecOps] 
 **Firmware avanzado para HackRF + PortaPack** en C/C++ con herramientas para pentesting RF, análisis de espectro y experimentación SDR.
 
-![Banner](https://via.placeholder.com/800x200/2d3748/ffffff?text=PortaPack-Havoc+Mod) *(Reemplaza con imagen real de tu proyecto)*
+![Banner](https://via.placeholder.com/800x200/2d3748/ffffff?text=PortaPack-Havoc+Mod) 
 
 [![Licencia GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/KevinDevSecOps/portapack-havoc/build.yml?label=Build)](.github/workflows/build.yml)
