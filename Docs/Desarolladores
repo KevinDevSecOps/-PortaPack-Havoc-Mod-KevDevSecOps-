@@ -1,0 +1,6 @@
+## Flujo de Desarrollo
+1. Modifica apps en `Firmware/Application/`.
+2. Actualiza el menú en `ui_navigation.cpp`.
+3. Compila:
+   ```bash
+   mkdir build && cd build && cmake .. && make
