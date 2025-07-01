@@ -96,4 +96,15 @@ Ver [LICENSE](LICENSE) para detalles.
 
 ---
 
+## 🌟 Agradecimientos  
+A toda la comunidad de **HackRF y PortaPack**, especialmente a los desarrolladores originales y colaboradores que hicieron posible este ecosistema abierto.  
 
+## 🚀 Únete a la Comunidad  
+¿Tienes ideas, preguntas o quieres colaborar? ¡Abramos un **Issue** o **Discusión** en el repo!  
+
+---
+
+**⚡ Proyecto creado con pasión por el hacking responsable, la radiofrecuencia y el código abierto.**  
+
+**Hecho con ❤️ por [KevinDevSecOps](https://github.com/KevinDevSecOps)**  
+*(¿Encontraste útil este proyecto? ¡Dale una ⭐ al repo!)*
