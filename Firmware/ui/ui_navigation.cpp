@@ -1,3 +1,5 @@
+// Busca el vector 'app_settings' y añade:
+{ "RF Scanner", &ui::Bitmap::scan_icon, [](NavigationView& nav) { nav.push<ScannerModView>(); } },
 // Añade esto en el vector 'app_settings':
 { "Jammer Mod", &ui::Bitmap::jammer_icon, [](NavigationView& nav) { nav.push<JammerModView>(); } },
 { "RF Scanner", &ui::Bitmap::scan_icon, [](NavigationView& nav) { nav.push<ScannerModView>(); } },
