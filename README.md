@@ -1,5 +1,8 @@
 # -PortaPack-Havoc-Mod-KevDevSecOps-
-
+## Comunidad
+- [Código de Conducta](CODE_OF_CONDUCT.md)
+- [Política de Seguridad](SECURITY.md)
+- [Guía para Contribuir](CONTRIBUTING.md)
 # PortaPack-Havoc Mod [by KevinDevSecOps] 
 **Firmware avanzado para HackRF + PortaPack** en C/C++ con herramientas para pentesting RF, análisis de espectro y experimentación SDR.
 
