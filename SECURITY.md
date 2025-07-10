@@ -1,7 +1,7 @@
 # Política de Seguridad
 
 ## Reporte de Vulnerabilidades
-Si descubres una vulnerabilidad de seguridad, **no abras un issue público**. Envía un email a [kpcoolkifs@gmail.com] con:
+Si descubres una vulnerabilidad de seguridad, **no abras un issue público**. Envía un email a [kpcoolkids@gmail.com] con:
 - Descripción detallada.
 - Pasos para reproducir.
 - Impacto potencial.
