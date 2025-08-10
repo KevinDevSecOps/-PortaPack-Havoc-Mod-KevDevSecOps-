@@ -2,6 +2,7 @@
 ![HackRF Love](https://img.shields.io/badge/Powered%20by-HackRF%20One-important)
 📻 **¡Que las ondas estén contigo!**
 ## Comunidad
+[![KevDevSecOps Certified](https://img.shields.io/badge/KEVDEVSECOPS-APPROVED-green)](https://github.com/KevinDevSecOps)
 - [Código de Conducta](CODE_OF_CONDUCT.md)
 - [Política de Seguridad](SECURITY.md)
 - [Guía para Contribuir](CONTRIBUTING.md)
