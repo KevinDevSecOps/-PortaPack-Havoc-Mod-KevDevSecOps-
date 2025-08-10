@@ -1,0 +1,9 @@
+[package]
+name = "portapack_rust_tools"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hackrf = "0.3"      # Para controlar el HackRF/PortaPack
+pnet = "0.31"       # Manipulación de paquetes
+libc = "0.2"        # Llamadas al sistema
