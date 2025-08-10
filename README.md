@@ -76,7 +76,9 @@ Ver [LICENSE](LICENSE) para detalles.
 > - Videos demostrativos (sube a YouTube y enlaza).  
 > - Detalles técnicos de tus modificaciones.  
 ```
-
+## 🐹 Herramientas en Go  
+- `rf_analyzer`: Detecta frecuencias sospechosas en capturas.  
+- `signal_cloner`: Prepara señales para el PortaPack.
 ---
 
 ### 🔥 **Pasos para implementarlo**
