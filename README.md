@@ -6,7 +6,6 @@
 - [Código de Conducta](CODE_OF_CONDUCT.md)
 - [Política de Seguridad](SECURITY.md)
 - [Guía para Contribuir](CONTRIBUTING.md)
-# PortaPack Havoc Mod - KevDevSecOps
 
 **Proyecto modular para PortaPack Havoc con herramientas en múltiples lenguajes.**
 
