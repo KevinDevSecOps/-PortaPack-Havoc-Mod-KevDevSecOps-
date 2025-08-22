@@ -1,4 +1,27 @@
 [package]
+name = "portapack-ai-analyser"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+crossbeam = "0.8"
+rayon = "1.5"
+ndarray = "0.15"
+rand = "0.8"
+libm = "0.2"
+byteorder = "1.4"
+serialport = "4.2"
+# Machine learning ligero
+linfa = "0.6"
+linfa-kmeans = "0.6"
+# Procesamiento de señal
+rustfft = "6.1"
+realfft = "3.2"
+# Visualización (para debugging)
+plotters = "0.3"
+[package]
 name = "portapack_rust_tools"
 version = "0.1.0"
 edition = "2021"
