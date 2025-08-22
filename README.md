@@ -6,6 +6,120 @@
 - [Código de Conducta](CODE_OF_CONDUCT.md)
 - [Política de Seguridad](SECURITY.md)
 - [Guía para Contribuir](CONTRIBUTING.md)
+# PortaPack Havoc Mod - KevDevSecOps
+
+**Proyecto modular para PortaPack Havoc con herramientas en múltiples lenguajes.**
+
+## 🚀 Novedades (Actualización Reciente)
+
+Se ha añadido soporte para herramientas externas en Go y Rust:
+- **Control remoto** del PortaPack mediante interfaz serial
+- **Procesamiento avanzado** de señales con Rust
+- **Automatización** de pruebas y capturas
+
+## 📁 Estructura del Proyecto
+
+### 1. Firmware C++ Principal (`firmware-cpp/`)
+- Firmware principal para PortaPack
+- Control de hardware de radio
+- Operaciones en tiempo real
+- Apps de TX/RX integradas
+
+### 2. Herramientas de Control en Go (`tools-go/`)
+- Control remoto del PortaPack vía serial
+- Automatización de pruebas
+- Captura y análisis de datos
+- Scripts de automatización
+
+### 3. Procesamiento de Señales en Rust (`signal-processing-rust/`)
+- Análisis avanzado de señales
+- Algoritmos de demodulación
+- Procesamiento intensivo
+- Análisis espectral
+
+## 🛠️ Compilación y Uso
+
+### Firmware C++
+```bash
+cd firmware-cpp
+make clean
+make
+# Flashear al PortaPack
+```
+
+### Herramientas Go
+```bash
+cd tools-go
+go build -o portapack-control
+./portapack-control /dev/ttyACM0
+```
+
+### Procesamiento Rust
+```bash
+cd signal-processing-rust
+cargo build --release
+./target/release/portapack-signal-processing captura.iq
+```
+
+## 🔧 Configuración Serial
+
+El firmware debe estar compilado con soporte para comunicación serial:
+
+```cpp
+// En el firmware, habilitar interfaz serial
+serial_init();
+printf("PortaPack Havoc Mod ready\n");
+```
+
+## 📋 Funcionalidades Implementadas
+
+### TX/RX Básico
+- Transmisión en múltiples frecuencias
+- Recepción con diferentes modulaciones
+- Control de ganancia y ancho de banda
+
+### Herramientas Avanzadas
+- **Scanner de espectro** automático
+- **Captura de IQ data** para análisis posterior
+- **Inyección de señales** personalizadas
+- **Análisis de protocolos** comunes
+
+## 🎯 Próximas Características
+
+- [ ] Soporte para más protocolos (ADS-B, LoRa, etc.)
+- [ ] Interfaz web de control remoto
+- [ ] Biblioteca de procesamiento de señales
+- [ ] Tools para análisis de seguridad RF
+
+## 📝 Licencia
+
+MIT License - Ver LICENSE para detalles.
+
+## 🤝 Contribución
+
+¡Las contribuciones son bienvenidas! Por favor:
+
+1. Haz fork del proyecto
+2. Crea una rama para tu feature
+3. Commit de tus cambios
+4. Push a la rama
+5. Abre un Pull Request
+
+## 📊 Estado del Proyecto
+
+**Estable**: 
+- ✅ TX/RX básico funcionando
+- ✅ Control serial implementado
+- ✅ Procesamiento de señales
+
+**En Desarrollo**:
+- 🚧 Más modulaciones
+- 🚧 Herramientas de análisis
+- 🚧 Optimizaciones de performance
+
+---
+
+*¿Necesitas ayuda? Abre un issue en GitHub o contacta a @KevDevSecOps*
 # PortaPack-Havoc Mod [by KevinDevSecOps] 
 **Firmware avanzado para HackRF + PortaPack** en C/C++ con herramientas para pentesting RF, análisis de espectro y experimentación SDR.
 
