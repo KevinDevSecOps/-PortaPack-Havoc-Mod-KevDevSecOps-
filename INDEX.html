@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortaPack Havoc Mod - TX/RX</title>
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #0f3460;
+            --text-color: #e6e6e6;
+            --highlight: #4cc9f0;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid var(--highlight);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--highlight);
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+        }
+        
+        .github-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .github-link:hover {
+            background: var(--highlight);
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .panel {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(76, 201, 240, 0.3);
+        }
+        
+        .panel-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--highlight);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .panel-title i {
+            font-size: 1.8rem;
+        }
+        
+        .spectrum-display {
+            height: 200px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--accent-color);
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input[type="range"], select, button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--text-color);
+            border: 1px solid var(--accent-color);
+        }
+        
+        button {
+            background: var(--accent-color);
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            height: 45px;
+        }
+        
+        button:hover {
+            background: var(--highlight);
+            transform: translateY(-2px);
+        }
+        
+        .tx-button {
+            background: var(--danger);
+            font-size: 1.2rem;
+        }
+        
+        .rx-button {
+            background: var(--success);
+            font-size: 1.2rem;
+        }
+        
+        .value-display {
+            text-align: center;
+            padding: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            margin-top: 5px;
+            font-family: monospace;
+        }
+        
+        .signal-strength {
+            height: 20px;
+            background: linear-gradient(90deg, var(--danger), var(--warning), var(--success));
+            border-radius: 10px;
+            margin-top: 10px;
+            position: relative;
+        }
+        
+        .signal-strength::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 70%;
+            height: 100%;
+            width: 3px;
+            background: white;
+        }
+        
+        .activity-log {
+            height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            font-family: monospace;
+            border: 1px solid var(--accent-color);
+        }
+        
+        .log-entry {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .log-time {
+            color: var(--highlight);
+            margin-right: 10px;
+        }
+        
+        .log-tx {
+            color: var(--danger);
+        }
+        
+        .log-rx {
+            color: var(--success);
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid var(--accent-color);
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .status-on {
+            background: var(--success);
+            box-shadow: 0 0 10px var(--success);
+        }
+        
+        .status-off {
+            background: var(--danger);
+        }
+        
+        /* Animaciones */
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px var(--highlight); }
+            50% { box-shadow: 0 0 20px var(--highlight); }
+            100% { box-shadow: 0 0 5px var(--highlight); }
+        }
+        
+        @keyframes spectrum {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .glow {
+            animation: glow 2s infinite;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PortaPack Havoc Mod - TX/RX</h1>
+            <p>Interfaz de control para transmisión y recepción de señales</p>
+            <a href="https://github.com/KevinDevSecOps/-PortaPack-Havoc-Mod-KevDevSecOps-" class="github-link" target="_blank">
+                Ver en GitHub
+            </a>
+        </header>
+        
+        <div class="main-content">
+            <div class="panel">
+                <div class="panel-title">
+                    <i>📡</i> Panel de Control TX/RX
+                </div>
+                
+                <div class="spectrum-display" id="spectrum">
+                    <!-- El espectro se generará con JavaScript -->
+                </div>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="frequency">Frecuencia (MHz)</label>
+                        <input type="range" id="frequency" min="400" max="600" step="1" value="433">
+                        <div class="value-display"><span id="frequency-value">433.000</span> MHz</div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="modulation">Modulación</label>
+                        <select id="modulation">
+                            <option>AM</option>
+                            <option>FM</option>
+                            <option>USB</option>
+                            <option>LSB</option>
+                            <option selected>BPSK</option>
+                            <option>QPSK</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="bandwidth">Ancho de Banda (kHz)</label>
+                        <input type="range" id="bandwidth" min="1" max="100" value="25">
+                        <div class="value-display"><span id="bandwidth-value">25</span> kHz</div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="squelch">Squelch</label>
+                        <input type="range" id="squelch" min="0" max="100" value="30">
+                        <div class="value-display"><span id="squelch-value">30</span>%</div>
+                    </div>
+                </div>
+                
+                <div class="signal-strength">
+                    <div class="value-display">Señal: <span id="signal-value">72</span>%</div>
+                </div>
+                
+                <div class="controls" style="grid-template-columns: 1fr 1fr; margin-top: 20px; gap: 15px;">
+                    <button class="rx-button" id="rx-button">Iniciar RX</button>
+                    <button class="tx-button" id="tx-button">Iniciar TX</button>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <div class="panel-title">
+                    <i>📋</i> Registro de Actividad
+                </div>
+                
+                <div class="activity-log" id="activity-log">
+                    <div class="log-entry">
+                        <span class="log-time">[12:30:45]</span>
+                        <span class="log-rx">RX:</span> Iniciando recepción en 433.000 MHz
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-time">[12:31:02]</span>
+                        <span class="log-rx">RX:</span> Señal detectada con fuerza 72%
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-time">[12:31:15]</span>
+                        <span class="log-tx">TX:</span> Modo BPSK activado
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-time">[12:31:40]</span>
+                        <span class="log-rx">RX:</span> Paquete de datos recibido (128 bytes)
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-time">[12:32:10]</span>
+                        <span class="log-tx">TX:</span> Transmisión de prueba iniciada
+                    </div>
+                </div>
+                
+                <div class="status-bar">
+                    <div class="status-item">
+                        <span class="status-indicator status-on"></span>
+                        <span>Alimentación: OK</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-indicator status-on"></span>
+                        <span>SDR: Conectado</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-indicator status-off"></span>
+                        <span>TX: Inactivo</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-indicator status-on"></span>
+                        <span>RX: Activo</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button id="clear-log">Limpiar Registro</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            PortaPack Havoc Mod by KevDevSecOps | 2023 | Interfaz TX/RX
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos del DOM
+            const frequencySlider = document.getElementById('frequency');
+            const frequencyValue = document.getElementById('frequency-value');
+            const bandwidthSlider = document.getElementById('bandwidth');
+            const bandwidthValue = document.getElementById('bandwidth-value');
+            const squelchSlider = document.getElementById('squelch');
+            const squelchValue = document.getElementById('squelch-value');
+            const signalValue = document.getElementById('signal-value');
+            const rxButton = document.getElementById('rx-button');
+            const txButton = document.getElementById('tx-button');
+            const clearLogButton = document.getElementById('clear-log');
+            const activityLog = document.getElementById('activity-log');
+            const spectrumDisplay = document.getElementById('spectrum');
+            
+            // Crear visualización de espectro
+            function createSpectrum() {
+                spectrumDisplay.innerHTML = '';
+                const canvas = document.createElement('canvas');
+                canvas.width = spectrumDisplay.offsetWidth;
+                canvas.height = spectrumDisplay.offsetHeight;
+                spectrumDisplay.appendChild(canvas);
+                
+                const ctx = canvas.getContext('2d');
+                
+                function drawSpectrum() {
+                    const width = canvas.width;
+                    const height = canvas.height;
+                    
+                    ctx.clearRect(0, 0, width, height);
+                    
+                    // Dibujar rejilla de fondo
+                    ctx.strokeStyle = 'rgba(76, 201, 240, 0.2)';
+                    ctx.lineWidth = 1;
+                    
+                    // Líneas horizontales
+                    for (let i = 0; i <= height; i += height / 5) {
+                        ctx.beginPath();
+                        ctx.moveTo(0, i);
+                        ctx.lineTo(width, i);
+                        ctx.stroke();
+                    }
+                    
+                    // Líneas verticales
+                    for (let i = 0; i <= width; i += width / 10) {
+                        ctx.beginPath();
+                        ctx.moveTo(i, 0);
+                        ctx.lineTo(i, height);
+                        ctx.stroke();
+                    }
+                    
+                    // Dibujar señal de espectro simulada
+                    ctx.beginPath();
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#4cc9f0';
+                    
+                    const centerFreq = parseInt(frequencySlider.value);
+                    const baseFreq = centerFreq - 10;
+                    
+                    for (let x = 0; x < width; x++) {
+                        const freq = baseFreq + (x / width) * 20;
+                        const y = height - (
+                            Math.sin(x / 20) * 30 + 
+                            Math.random() * 10 +
+                            Math.exp(-Math.pow(freq - centerFreq, 2) / 5) * height / 1.5
+                        );
+                        
+                        if (x === 0) {
+                            ctx.moveTo(x, y);
+                        } else {
+                            ctx.lineTo(x, y);
+                        }
+                    }
+                    
+                    ctx.stroke();
+                    
+                    requestAnimationFrame(drawSpectrum);
+                }
+                
+                drawSpectrum();
+            }
+            
+            // Inicializar espectro
+            createSpectrum();
+            
+            // Actualizar valores de los sliders
+            frequencySlider.addEventListener('input', function() {
+                frequencyValue.textContent = this.value + '.000';
+            });
+            
+            bandwidthSlider.addEventListener('input', function() {
+                bandwidthValue.textContent = this.value;
+            });
+            
+            squelchSlider.addEventListener('input', function() {
+                squelchValue.textContent = this.value;
+            });
+            
+            // Botones TX/RX
+            rxButton.addEventListener('click', function() {
+                this.classList.toggle('glow');
+                const statusIndicator = document.querySelectorAll('.status-item')[3];
+                const indicator = statusIndicator.querySelector('.status-indicator');
+                
+                if (this.classList.contains('glow')) {
+                    this.textContent = 'Detener RX';
+                    indicator.classList.remove('status-off');
+                    indicator.classList.add('status-on');
+                    addLogEntry('RX: Recepción iniciada en ' + frequencyValue.textContent + ' MHz');
+                } else {
+                    this.textContent = 'Iniciar RX';
+                    indicator.classList.remove('status-on');
+                    indicator.classList.add('status-off');
+                    addLogEntry('RX: Recepción detenida');
+                }
+            });
+            
+            txButton.addEventListener('click', function() {
+                this.classList.toggle('glow');
+                const statusIndicator = document.querySelectorAll('.status-item')[2];
+                const indicator = statusIndicator.querySelector('.status-indicator');
+                
+                if (this.classList.contains('glow')) {
+                    this.textContent = 'Detener TX';
+                    indicator.classList.remove('status-off');
+                    indicator.classList.add('status-on');
+                    addLogEntry('TX: Transmisión iniciada en ' + frequencyValue.textContent + ' MHz');
+                    
+                    // Si RX está activo, detenerlo
+                    if (rxButton.classList.contains('glow')) {
+                        rxButton.classList.remove('glow');
+                        rxButton.textContent = 'Iniciar RX';
+                        document.querySelectorAll('.status-item')[3].querySelector('.status-indicator').classList.replace('status-on', 'status-off');
+                    }
+                } else {
+                    this.textContent = 'Iniciar TX';
+                    indicator.classList.remove('status-on');
+                    indicator.classList.add('status-off');
+                    addLogEntry('TX: Transmisión detenida');
+                }
+            });
+            
+            // Limpiar registro
+            clearLogButton.addEventListener('click', function() {
+                activityLog.innerHTML = '';
+                addLogEntry('Sistema: Registro limpiado');
+            });
+            
+            // Añadir entrada al registro
+            function addLogEntry(message) {
+                const now = new Date();
+                const timeString = '[' + now.getHours().toString().padStart(2, '0') + ':' + 
+                                  now.getMinutes().toString().padStart(2, '0') + ':' + 
+                                  now.getSeconds().toString().padStart(2, '0') + ']';
+                
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                
+                if (message.startsWith('TX:')) {
+                    logEntry.innerHTML = `<span class="log-time">${timeString}</span> <span class="log-tx">TX:</span> ${message.substring(4)}`;
+                } else if (message.startsWith('RX:')) {
+                    logEntry.innerHTML = `<span class="log-time">${timeString}</span> <span class="log-rx">RX:</span> ${message.substring(4)}`;
+                } else {
+                    logEntry.innerHTML = `<span class="log-time">${timeString}</span> ${message}`;
+                }
+                
+                activityLog.appendChild(logEntry);
+                activityLog.scrollTop = activityLog.scrollHeight;
+            }
+            
+            // Simular cambios de señal
+            setInterval(function() {
+                const currentSignal = parseInt(signalValue.textContent);
+                const newSignal = Math.min(100, Math.max(0, currentSignal + (Math.random() * 10 - 5)));
+                signalValue.textContent = Math.round(newSignal);
+            }, 2000);
+            
+            // Añadir algunas entradas de log automáticas
+            setInterval(function() {
+                if (rxButton.classList.contains('glow') && Math.random() > 0.7) {
+                    const packets = Math.floor(Math.random() * 5) + 1;
+                    const bytes = Math.floor(Math.random() * 256) + 32;
+                    addLogEntry(`RX: ${packets} paquetes recibidos (${bytes} bytes cada uno)`);
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
