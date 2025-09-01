@@ -8,7 +8,159 @@
 - [Guía para Contribuir](CONTRIBUTING.md)
 
 **Proyecto modular para PortaPack Havoc con herramientas en múltiples lenguajes.**
+📻 PortaPack Havoc Mod - TX/RX Toolkit
 
+Framework modular para investigación RF ética con PortaPack
+
+🏗️ Arquitectura del Sistema
+
+```mermaid
+graph TB
+    subgraph “Hardware PortaPack”
+        A[Firmware C++] --> B[Radio MAX2837]
+        B --> C[Interfaz Serial]
+    end
+
+    subgraph “Tools Go”
+        D[Control Remoto] --> C
+        D --> E[Automatización]
+        D --> F[Captura Datos]
+    end
+
+    subgraph “Signal Processing Rust”
+        G[Análisis Espectral] --> H[Beamforming Digital]
+        G --> I[Detección ML]
+        G --> J[Smart Jamming*]
+    end
+
+    C --> D
+    C --> G
+    
+    style J stroke:#f66,stroke-width:2px
+```
+
+⚠️ Nota: Smart Jamming solo para investigación autorizada en entornos controlados
+
+📦 Módulos Principales
+
+1. 🎯 Firmware C++ (firmware-cpp/)
+
+```bash
+# Compilación
+make clean && make
+
+# Características
+- Control hardware radio
+- Operaciones tiempo real
+- Apps TX/RX integradas
+- Interfaz serial segura
+```
+
+2. 🕹️ Herramientas Go (tools-go/)
+
+```bash
+# Build
+go build -o portapack-control
+
+# Uso
+./portapack-control /dev/ttyACM0 --analyze --freq 433.92
+```
+
+3. 📊 Procesamiento Rust (signal-processing-rust/)
+
+```bash
+# Build
+cargo build --release
+
+# Análisis
+./target/release/portapack-ai --input capture.iq --analyze
+```
+
+🔄 Flujo de Datos
+
+```mermaid
+sequenceDiagram
+    participant PortaPack
+    participant GoTools
+    participant RustAI
+    participant User
+
+    PortaPack->>GoTools: IQ Data Stream
+    GoTools->>RustAI: Process Request
+    RustAI->>RustAI: ML Analysis
+    RustAI->>GoTools: Results
+    GoTools->>User: Visualization
+    User->>GoTools: Commands
+    GoTools->>PortaPack: Control Signals
+```
+
+🛡️ Esquema de Seguridad
+
+```mermaid
+graph LR
+    A[User Request] --> B{Ethical Guard}
+    B -->|Allowed| C[Frequency Check]
+    B -->|Denied| D[🚫 Blocked]
+    
+    C -->|Safe| E[Time Limit]
+    C -->|Protected| D
+    
+    E -->|Valid| F[Execute]
+    E -->|Exceeded| D
+    
+    F --> G[Log Activity]
+    G --> H[📊 Results]
+```
+
+⚙️ Configuración Rápida
+
+1. Flash Firmware:
+
+```bash
+cd firmware-cpp && make && make flash
+```
+
+1. Control Básico:
+
+```bash
+cd tools-go && go run main.go --help
+```
+
+1. Análisis:
+
+```bash
+cd signal-processing-rust && cargo run -- --analyze
+```
+
+📋 Especificaciones Técnicas
+
+Módulo Lenguaje Uso Principal Dependencias
+Firmware C++ Control hardware libopencm3
+Tools Go Automatización serial lib
+AI Analysis Rust Procesamiento linfa, rustfft
+
+🔧 Endpoints Serial
+
+```
+FREQ <freq_hz>      # Set frequency
+MOD <modulation>    # Set modulation
+TX START/STOP       # Control TX
+RX START/STOP       # Control RX
+CAPTURE <ms>        # Capture data
+```
+
+🚨 Importante
+
+TODO USO DE TRANSMISIÓN REQUIERE:
+
+· ✅ Licencias apropiadas
+· ✅ Entorno controlado
+· ✅ Autorización por escrito
+· ✅ Documentación completa
+
+---
+
+¿Preguntas? Abre un issue en GitHub
 ## 🚀 Novedades (Actualización Reciente)
 
 Se ha añadido soporte para herramientas externas en Go y Rust:
