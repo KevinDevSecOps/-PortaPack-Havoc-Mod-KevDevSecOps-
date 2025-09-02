@@ -2,7 +2,7 @@
 ![HackRF Love](https://img.shields.io/badge/Powered%20by-HackRF%20One-important)
 📻 **¡Que las ondas estén contigo!**
 
-Entorno de seguridad ofensiva todo-en-uno con arquitectura ofensiva by CK
+Entorno de seguridad ofensiva todo-en-uno con arquitectura modular ofensiva by CK
 
 **Proyecto modular para PortaPack Havoc con herramientas en múltiples lenguajes.**
 📻 PortaPack Havoc Mod - TX/RX Toolkit
