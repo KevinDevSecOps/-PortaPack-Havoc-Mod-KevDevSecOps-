@@ -186,33 +186,6 @@ NUNCA para:
 
 Framework modular para investigación RF ética con PortaPack
 
-🏗️ Arquitectura del Sistema
-
-```mermaid
-graph TB
-    subgraph “Hardware PortaPack”
-        A[Firmware C++] --> B[Radio MAX2837]
-        B --> C[Interfaz Serial]
-    end
-
-    subgraph “Tools Go”
-        D[Control Remoto] --> C
-        D --> E[Automatización]
-        D --> F[Captura Datos]
-    end
-
-    subgraph “Signal Processing Rust”
-        G[Análisis Espectral] --> H[Beamforming Digital]
-        G --> I[Detección ML]
-        G --> J[Smart Jamming*]
-    end
-
-    C --> D
-    C --> G
-    
-    style J stroke:#f66,stroke-width:2px
-```
-
 ⚠️ Nota: Smart Jamming solo para investigación autorizada en entornos controlados
 
 📦 Módulos Principales
